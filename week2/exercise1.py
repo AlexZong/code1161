@@ -14,15 +14,15 @@ print("hello! Let's get started")  # it printed "hello! Let's get started"
 some_words = ['what', 'does', 'this', 'line', 'do', '?']
 
 for word in some_words:
-    print(word)
+    print(word)#it printed "word"
 
 for x in some_words:
-    print(x)
+    print(x)#it printed "x"
 
-print(some_words)
+print(some_words)#it printed "some_words"
 
 if len(some_words) > 3:
-    print('some_words contains more than 3 words')
+    print('some_words contains more than 3 words')#it printed some words contains more than 3 words
 
 def usefulFunction():
     """
@@ -30,6 +30,6 @@ def usefulFunction():
     what the line below does:
     https://docs.python.org/3/library/platform.html#platform.uname
     """
-    print(platform.uname())
+    print(platform.uname())#it printed platform.uname()
 
 usefulFunction()

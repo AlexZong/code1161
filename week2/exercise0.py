@@ -33,7 +33,7 @@ def shout(a_string):
     or in any of the million places that google will give you.
     "python make a string uppercase" is a good starting search query.
     """
-    return a_string.uppercase
+    return a_string.upper()
 
 
 def really_shout(a_string):
@@ -43,7 +43,7 @@ def really_shout(a_string):
     from above.
     Look up how to 'concatinate' strings to make this happen.
     """
-    return "a_string.uppercase" + "!"
+    return shout(a_string) + '!'
 
 def shout_with_a_number(a_string, a_number):
     """Return a string in uppercase with a space and a_number concatentated.
@@ -53,7 +53,7 @@ def shout_with_a_number(a_string, a_number):
 
     HINT: Lookup how to cast a_number to a string or lookup how to use f-strings in python
     """
-    return 
+    return shout(a_string) + ' ' + str(a_number)
 
 def minitest(f, args, expected):
     """Run a function with a list of args and print a response.
