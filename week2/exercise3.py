@@ -7,9 +7,10 @@ def is_odd(a_number):
 
     Look into modulo division using the '%' operator as one way of doing this.
     """
-    return a_number % 2 == 1
-
-
+    if a_number % 2 == 1:
+        return False
+    else:
+        return True
 def fix_it(moves=True, should_move=True):
     """Decide what to do.
 
@@ -41,9 +42,9 @@ def loops_1a():
     E.g.: ['*', '*', '*', '*', '*', '*', '*', '*', '*', '*']
     """
     returnlist = []
-    for x in range (1,11):
+    for w in range (10):
         returnlist.append ("*")
-    return (returnlist)    
+    return returnlist    
  
 
 
@@ -56,8 +57,8 @@ def loops_1c(number_of_items=5, symbol="#"):
     E.g.: ['#', '#', '#', '#', '#']
     """
     returnlist = []
-    for x in range (number_of_items):
-        returnlist.append ("symbol")
+    for r in range (number_of_items):
+        returnlist.append (symbol)
     return (returnlist)    
  
 
@@ -81,9 +82,9 @@ def loops_2():
           ]
     """
     returnlist = []
-    for a in range(0, 10):
+    for s in range(0, 10):
         jpg = []
-        for b in range(0, 10):
+        for n in range(0, 10):
             jpg.append("*")
         returnlist.append(jpg)
     return (returnlist)
@@ -113,7 +114,7 @@ def loops_3():
     returnlist = []
     for a in range (0, 10):
         jpg = []
-        for b in range (0, 10):
+        for d in range (0, 10):
             jpg.append(str(a))
         returnlist.append (jpg)
     return (returnlist)
@@ -137,7 +138,7 @@ def loops_4():
     ]
     """
     returnlist = []
-    for x in range (0, 10):
+    for m in range (0, 10):
         jpg = []
         for y in range (0, 10):
             jpg.append(str(y))

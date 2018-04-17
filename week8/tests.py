@@ -1,168 +1,206 @@
 # -*- coding: UTF-8 -*-
-"""Run the tests.
+"""
+I'm in UR exam.
 
-This file tests your code. It'll check that the work in each
-of the exercise files does what it's supposed to.
+This is the same as the weekly exercises, fill in the functions,
+and test them to see if they work.
+
+You've got an hour.
 """
 from __future__ import division
 from __future__ import print_function
-import imp
-import os
-import sys
-import string
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-from codeHelpers import completion_message
-from codeHelpers import ex_runs
-from codeHelpers import nyan_cat
-# from codeHelpers import syntax_error_message
-from codeHelpers import test
-from codeHelpers import test_flake8
-from codeHelpers import Timeout
-
-WEEK_NUMBER = 8
-testResults = []
+import time
 
 
-def exam_test(expected,
-              args,
-              function_to_test,
-              finishing_function=None,
-              extra_message=""):
-    print(extra_message)
-    template = ("{n}:\n"
-                "    given:    {a}\n"
-                "    expected: {e}\n"
-                "    got:      {g}\n")
-    try:
-        got = function_to_test(*args)
-        if finishing_function:
-            print("raw", got)
-            got = finishing_function(got)
-        if len(args) == 0:
-            args = "* no args *"
-        elif len(args) == 1:
-            args = args[0]
-        # else:
-        #     args = args
-        message = template.format(n=function_to_test.__name__,
-                                  a=args,
-                                  e=expected,
-                                  g=got)
-        testResults.append(test(got == expected, message))
-    except Exception as e:
-        message = template.format(n=function_to_test.__name__,
-                                  a=args,
-                                  e=expected,
-                                  g=e)
-        testResults.append(test(False, message))
+def greet(name="Towering Timmy"):
+    """Return a greeting.
+
+    return a string of "Hello" and the name argument.
+    E.g. if given as "Towering Timmy" it should return "Hello Towering Timmy"
+    """
+    greet = "Hello "
+    greet = greet + name
+    return greet
 
 
-def theTests(path_to_code_to_check="."):
-    """Run all the tests."""
-    print("\nWelcome to the exam!")
-    print("May the odds be ever in your favour.\nEspecially today!")
+def three_counter(input_list=[1, 4, 3, 5, 7, 1, 3, 2, 3, 3, 5, 3, 7]):
+    """Count the number of 3s in the input_list.
 
-    ex1path = "{}/week{}/exercise1.py".format(path_to_code_to_check,
-                                              WEEK_NUMBER)
-
-    if ex_runs(path_to_code_to_check, exNumber=1, weekNumber=WEEK_NUMBER):
-        exam = imp.load_source("exercise1", ex1path)
-
-        testResults.append(test(test_flake8(ex1path), "pass the linter"))
-
-        exam_test("Hello the Queen", ["the Queen"], exam.greet)
-        exam_test("Hello Pr♂nc♀♂", ["Pr♂nc♀♂"], exam.greet)
-
-        exam_test(4, [[3, 3, 3, 3, 1]], exam.three_counter)
-        exam_test(0, [[0, 1, 2, 5, -9]], exam.three_counter)
-
-        fizza = [1, 2, 'Fizz', 4, 'Buzz', 'Fizz', 7, 8, 'Fizz', 'Buzz', 11,
-                 'Fizz', 13, 14, 'FizzBuzz', 16, 17, 'Fizz', 19, 'Buzz',
-                 'Fizz', 22, 23, 'Fizz', 'Buzz', 26, 'Fizz', 28, 29,
-                 'FizzBuzz', 31, 32, 'Fizz', 34, 'Buzz', 'Fizz', 37, 38,
-                 'Fizz', 'Buzz', 41, 'Fizz', 43, 44, 'FizzBuzz', 46, 47,
-                 'Fizz', 49, 'Buzz', 'Fizz', 52, 53, 'Fizz', 'Buzz', 56,
-                 'Fizz', 58, 59, 'FizzBuzz', 61, 62, 'Fizz', 64, 'Buzz',
-                 'Fizz', 67, 68, 'Fizz', 'Buzz', 71, 'Fizz', 73, 74,
-                 'FizzBuzz', 76, 77, 'Fizz', 79, 'Buzz', 'Fizz', 82, 83,
-                 'Fizz', 'Buzz', 86, 'Fizz', 88, 89, 'FizzBuzz', 91, 92,
-                 'Fizz', 94, 'Buzz', 'Fizz', 97, 98, 'Fizz', 'Buzz']
-        exam_test(fizza, [], exam.fizz_buzz)
-
-        exam_test("|a| |s|e|r|i|a|l| |k|i|l|l|e|r|",
-                  ["a serial killer"],
-                  exam.put_behind_bars)
-        exam_test("|a| |b|a|r|t|e|n|d|e|r|",
-                  ["a bartender"],
-                  exam.put_behind_bars)
-
-        exam_test(['red fox'], ["x"], exam.pet_filter)
-        exam_test([], ["q"], exam.pet_filter)
-        exam_test(['pig', 'sheep', 'guinea pig', 'pigeon', 'alpaca', 'guppy'],
-                  ["p"],
-                  exam.pet_filter)
-
-        exam_test("e", [], exam.best_letter_for_pets)
-
-        exam_test(175,
-                  [],
-                  exam.make_filler_text_dictionary,
-                  lambda x: len(str(x)))
-
-        exam_test(True,
-                  [50],
-                  exam.random_filler_text,
-                  lambda x: len(x.split(" ")) == 50 and len(x) > 3*50)
-
-        exam_test(True,
-                  [1000],
-                  exam.random_filler_text,
-                  lambda x: len(x.split(" ")) == 1000 and len(x) > 3*1000)
-
-        exam_test(True,
-                  [100],
-                  exam.fast_filler,
-                  lambda x: len(x.split(" ")) == 100 and len(x) > 3*100)
-        exam_test(True,
-                  [10],
-                  exam.fast_filler,
-                  lambda x: x[0] in string.uppercase and x[1] in string.lowercase,
-                  "Test if fast_filler is capitalised")
-        exam_test(True,
-                  [10],
-                  exam.fast_filler,
-                  lambda x: x[-1] == ".",
-                  "Test if fast_filler finishes with a .")
-
-        #
-        # try:
-        #     with Timeout(1):
-        #         for _ in range(10):
-        #             exam.fast_filler(1000)
-        #         testResults.append(
-        #             test(True,
-        #                  "subsiquent fast_filler"))
-        # except Timeout as t:
-        #     testResults.append(
-        #         test(False,
-        #              "subsiquent fast_filler probably wasn't fast enough"))
-        # except Exception as e:
-        #     testResults.append(
-        #         test(False,
-        #              "subsiquent fast_filler failed" + str(e)))
-
-    print("{0}/{1} (passed/attempted)".format(sum(testResults),
-                                              len(testResults)))
-
-    if sum(testResults) == len(testResults):
-        print(nyan_cat())
-        message = "Cowabunga! You've got all the tests passing!"
-        completion_message(message, len(message) + 2)
-
-    return {"of_total": len(testResults),
-            "mark": sum(testResults),
-            "results": testResults}
+    Return an integer.
+    TIP: the test will use a different input_list, so don't just return 5
+    """
+    asd = 0
+    for i in input_list:
+        if i == 3:
+            asd = asd + 1
+    return asd
 
 
-if __name__ == "__main__":
-    theTests()
+def fizz_buzz():
+    """Do the fizzBuzz.
+
+    This is the most famous basic programming test of all time!
+
+       "Write a program that prints the numbers from 1 to 100. But for
+        multiples of three print "Fizz" instead of the number and for
+        the multiples of five print "Buzz". For numbers which are
+        multiples of both three and five print "FizzBuzz"."
+            from https://blog.codinghorror.com/why-cant-programmers-program/
+
+    Return a list that has an integer if the number isn't special, and a string
+    if it is. E.g. [1, 2, "Fizz", 4, "Buzz", 6, 7, ...]
+    """
+    fizzBuzzList = []
+    for i in range(1,101):
+        if i%3 == 0:
+            if i%5 ==0:
+                fizzBuzzList.append("FizzBuzz")
+            else:
+                fizzBuzzList.append("Fizz")
+        else:
+            if i%5 == 0:
+                fizzBuzzList.append("Buzz")
+            else:
+                fizzBuzzList.append(i)
+    return fizzBuzzList
+
+
+def put_behind_bars(input_string="very naughty boy"):
+    """Interleave the input_string with pipes.
+
+    Given any string, interleave it with pipes (| this character)
+    e.g. "very naughty boy" should return "|v|e|r|y| |n|a|u|g|h|t|y| |b|o|y|"
+    TIP: make sure that you have a pipe on both ends of the string.
+    """
+    asd = ""
+    for i in input_string :
+        asd = asd+ "|" + i
+    asd = asd + "|"
+    return asd
+
+
+def pet_filter(letter="a"):
+    """Return a list of animals with `letter` in their name."""
+    pets = ["dog", "goat", "pig", "sheep", "cattle", "zebu", "cat", "chicken",
+            "guinea pig", "donkey", "duck", "water buffalo",
+            "western honey bee", "dromedary camel", "horse", "silkmoth",
+            "pigeon", "goose", "yak", "bactrian camel", "llama", "alpaca",
+            "guineafowl", "ferret", "muscovy duck", "barbary dove",
+            "bali cattle", "gayal", "turkey", "goldfish", "rabbit", "koi",
+            "canary", "society finch", "fancy mouse", "siamese fighting fish",
+            "fancy rat and lab rat", "mink", "red fox", "hedgehog", "guppy"]
+    asd = []
+    for i in pets:
+        for j in i:
+            if j == letter:
+                asd.append(i)
+                break
+    return asd
+
+def best_letter_for_pets():
+    """Return the letter that is present at least once in the most pet names.
+
+    Reusing the pet_filter, find the letter that gives the longest list of pets
+    TIP: return just a letter, not the list of animals.
+    """
+#    import string
+#    the_alphabet = lowercase
+    the_alphabet ="abcdefghijklmnopqrstuvwxyz"
+    maxlen = 0
+    maxlett = '1'
+    for i in the_alphabet:
+        tmp = pet_filter(i)
+        tmpl = len(tmp)
+        if tmpl> maxlen:
+            maxlen = tmpl
+            maxlett = i
+    return maxlett
+
+
+def make_filler_text_dictionary():
+    """Make a dictionary of random words filler text.
+
+    There is a random word generator here: http://www.setgetgo.com/randomword/
+    The only argument that the generator takes is the length of the word.
+
+    Return a dictionary where the keys are numbers, and the values are lists of
+    words. e.g. {3: ['cat','pop','cow'], ...}
+    Use the API to get the 3 words.
+    The dictionary should have the numbers between 3 and 7 inclusive.
+    (i.e. 3, 4, 5, 6, 7 and 3 words for each)
+    TIP: to add an argument to a URL, use: ?argName=argVal e.g. ?len=
+    TIP: you'll need the requests library
+    """
+    import requests
+    dic = {}
+    for i in range(3,8):
+    	 l = requests.get("http://www.setgetgo.com/randomword/?len=" + str(i))
+    	 # need decode
+    	 dic[i] = l
+
+    return dic
+
+
+def random_filler_text(number_of_words=200):
+    """Make a paragraph of random filler text.
+
+    Using the dictionary returned by make_filler_text_dictionary, make a
+    paragraph of text using randomly picked words. Each word should be a random
+    length, and a random one of the 3 words.
+    Make the paragraph have number_of_words words in it.
+    Return it as a string
+    TIP: you'll need the random library
+    Bonus: extra mark if you get the paragraph to start with a
+           capital letter and end with a full stop.
+    """
+    import random
+    dic = make_filler_text_dictionary()
+    text = ''
+    for _ in range(number_of_words):
+    	 length = int(random.random()*4)+3
+    	 idx = int(random.random()*2)
+    	 text += dic[length][idx]
+    return text
+
+def fast_filler(number_of_words=200):
+    """Reimplement random filler text.
+
+    This time, the first time the code runs, save the dictionary to a file.
+    On the second run,if the file already exists use it instead of going to
+    the internet.
+    Use the filename "dict_racey.words"
+    TIP: you'll need the os library
+    TIP: you'll probably want to use json dumps and loads to get the dictionary
+    into and out of the file. Be careful when you read it back in, it'll
+    convert integer keys to strings.
+    """
+    import os
+    import json
+    import random
+    dic={}
+    if os.path.exists("./dict_racey.words"):
+        json_file = open("./dict_racey.words",'a',encoding='utf-8')
+    else:
+        dic = make_filler_text_dictionary()
+        json_file = open("./dict_racey.words",'w',encoding='utf-8')
+        json.dump(dic,json_file,ensure_ascii=False)
+    text = ''
+    for _ in range(number_of_words):
+        length = str(random.random()*4+3)
+        idx = int(random.random()*2)
+        text += dic[length][idx]
+    return text
+
+
+if __name__ == '__main__':
+    print(greet())
+    print(three_counter())
+    print(fizz_buzz())
+    print(put_behind_bars())
+    print(pet_filter())
+    print(best_letter_for_pets())
+    print(make_filler_text_dictionary())
+    print(random_filler_text())
+    print(fast_filler())
+    for i in range(10):
+        print(i, fast_filler())
